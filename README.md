@@ -135,7 +135,7 @@ public class ShoeStore {
 
 This Simple Factory that we have created here is not actually a fully fledged Design Pattern. It’s more commonly referred to as a **programming idiom**, which is a group of code fragments sharing an equivalent semantic role, which recurs frequently across software projects often expressing a special feature of a recurring construct in one or more programming languages or libraries.[3] Think of a Simple Factory as a stepping stone to building our Factory Method Design Pattern
 
-INSERT DIAGRAM HERE
+![Diagram](images/simpleFactoryDiagram.png)
 
 #### Breaking Down the Diagram
 * **ShoeStore:** is the client of the factory. ShoeStore goes through the SimpleShoeFactory to get instances of Shoe
