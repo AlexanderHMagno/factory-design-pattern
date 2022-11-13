@@ -1,4 +1,4 @@
-# factory-design-pattern
+![Logo JJX](./images/logo.png)
 
 ### Introduction: What is the Factory Method and Why Do We Use It?
 
