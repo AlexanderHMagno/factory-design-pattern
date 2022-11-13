@@ -162,14 +162,76 @@ torShoeStore.orderShoe("Runner");
 
 ### Building a Factory Method (FactoryMethod Package)
 
-Our first solution seemed to work in the general sense, but not only does our clientele in different regions desire different styles to their shoes, the factories also have different ways of assembling and packaging shoes. Maybe our Toronto factory is located beside a box manufacturer and it is easier to order boxes from them than make the boxes in house like our Vancouver factory. 
+Our first solution seemed to work in the general sense, but not only does our clientele in different regions desire different styles to their shoes, the factories also have different ways of assembling and packaging shoes. Maybe our Toronto factory is located beside a box manufacturer and it is easier to order boxes from them than make the boxes in house like our Vancouver factory.
 
-Ultimately, what we want to do is keep the framework of tying the shoe store to the creation of the shoe, but allow for more flexibility for the different variables we have to consider. The first obvious answer is to use abstraction for our shoe stores. This will allow us to generalize the shoe creation process, but then allow our store subclasses to have the flexibility to utilize their style for creating and selling shoes.
+Ultimately, what we want to do is keep the framework of tying the shoe store to the creation of the shoe, but allow for more flexibility for the different variables we have to consider.
+
+The first obvious answer is to use abstraction for our shoe stores. This will allow us to generalize the shoe creation process, but then allow our store subclasses to have the flexibility to utilize their style for creating and selling shoes.
+
+With all of this in mind, there should be a solution that we can implement in order to create a valid separation of concerns between our classes, giving the power to each location to personalize their products (materials  and processes) introducing a great level of flexibility in each region, but at the same time not affecting or modifying the way that we are producing our shoes as an abstraction. This problem has been faced by other companies, and they have solved this problem with the Factory design method. Why not take advantage of this and create a solution following their principles.
+
+The first step to create this design pattern is to understand our factory as a separate entity of the product that we are creating (and from now on this part will be understood as the creator entity), therefore we need a creator class that could produce a product, and a product that could have any type of characteristic, without affecting the creator class per se. It means, the creator class will control what product to produce but the responsibility of developing the product will be 100% in charge of the product class itself, not the creator class.
+
+This separation of concern is what gives the power to the factory design pattern, because the creator will not need to change if the product changes, and at the same time the product can be extended giving a major flexibility to the client.
+
+We need to implement 2 types of classes, the creational class, and the product class. 
+
+## How JJX implemented the Factory Design Pattern
+
+As a company we have two principal markets to attend to, Vancouver and Toronto's market (for now, we could extend our services to other cities).  And as we know, people in these cities are looking for different types of processes and materials, therefore we should give to each one a personalized experienced according to their expectations (remember that Vancouver has a very wet climate and our shoes require more waterproofing technology, versus a city like Toronto has colder winters and less rigorous terrain).
+
+Then, we implemented a ShoeStore Abstract (SSA) class that will be the blueprint for each new factory we would like to include. The single responsibility of these classes is to indicate which Shoe to create (not how the shoe is created per se). Then, we must implement an abstract method in the SSA class, which indicates that any subclass that extends the SSA will need to implement this method.
 
 
+![Diagram Creator](images/creator.png)
+
+The following diagram, will give you an idea of the level of flexibility that we are giving to our shoes, a shoe produced by the Toronto section could be completed different that the one in Vancouver but still they have in common that they need to have a package, get materials, need to specify how the shoes are assembled and of course each shoe must have a name. This will be a great flexibility, but still they need to follow a protocol that as and abstraction will make them a Shoe.
+
+![Diagram Creator](images/product.png)
+
+Now, that we have a creational part and a product part we can expose our process (We expose our process, not our secrets), and here we are, the implementation that allow us to keep encapsulated our process and still provide the most flexible service to our clients, the JJX factory design pattern:
+
+![Diagram Creator](images/factorypattern.png)
 
 
+## How To use this code
 
+Go to src/FactoryMethod/JJXTestDriver.java
+
+And run the file, it will give you a basic idea on how, this  design pattern works.
+
+As an example: 
+
+````
+    ShoeStore VcStore = new VancouverShoeStore();
+    ShoeStore TrStore = new TorontoShoeStore();
+
+    Shoe example = VcStore.orderShoe(ShoeStyle.RUNNER);
+    System.out.println("\nJing Ordered " + example.getName() + "\n");
+
+    Shoe example2 = TrStore.orderShoe(ShoeStyle.HIKING);
+    System.out.println("\nJordan Ordered " + example2.getName() + "\n");
+````
+
+will output :
+
+````
+
+Getting waterproofing materials
+Collecting and cutting Materials
+Assembling your Shoes. While we wish to be at whistler! Still we love you
+Packing your shoes. I hope it is ready before it starts to rain... sorry, too late
+
+Jing Ordered Vancouver Running Shoe - The Stanley
+
+Getting warmer Materials
+Collecting and cutting Materials
+Assembling your Shoes, while the Toronto Raptors are playing!
+Packing with hot Cocoa love, cause Its a Toronto Winter Night.
+
+Jordan Ordered Toronto Hiking Boot - The Niagara
+
+````
 ## References
 
 [1] I. Rodriguez, “The factory method pattern and its implementation in Python,” Real Python, 07-Apr-2022. [Online]. Available: https://realpython.com/factory-method-python/#:~:text=Factory%20Method%20is%20a%20creational,interface%20to%20perform%20its%20tasks. [Accessed: 06-Nov-2022]. 

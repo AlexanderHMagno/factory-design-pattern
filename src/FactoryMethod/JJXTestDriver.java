@@ -23,6 +23,7 @@ public class JJXTestDriver {
 
         Shoe example3 = TrStore.orderShoe(ShoeStyle.CASUAL);
         System.out.println("\nAlex Ordered " + example3.getName() + "\n");
+
         example3 = VcStore.orderShoe(ShoeStyle.CASUAL);
         System.out.println("\nAlex Ordered " + example3.getName() + "\n");
 
