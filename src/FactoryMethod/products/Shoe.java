@@ -1,4 +1,4 @@
-package FactoryMethod;
+package FactoryMethod.products;
 
 /**
  * This interface represents the methods that go into producing a general shoe
@@ -19,4 +19,10 @@ public interface Shoe {
    * Packages the shoe for shipping
    */
   void packageShoe();
+
+  /**
+   * Get the name of the implementation
+   * @return the name of each instance
+   */
+  String getName();
 }
